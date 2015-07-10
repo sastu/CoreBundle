@@ -74,8 +74,8 @@ class Mailer
         
         //envio el email con la clave
         $message = \Swift_Message::newInstance()
-            ->setSubject('Bienvenido a optisoop')
-            ->setFrom(array('optisoop@optisoop.com' => 'Core avisos'))
+            ->setSubject('Bienvenido a core')
+            ->setFrom(array('core@core.com' => 'Core avisos'))
             ->setTo($optic->getEmail())
             ->setBody(
                 $this->templating->render(
@@ -83,7 +83,7 @@ class Mailer
                     array(
                         'nombre' => $optic->getName(),
                         'email' => $optic->getEmail(),
-                        'hss_validacion' => md5($optic->getEmail().'optisoopkey'.$optic->getId()),
+                        'hss_validacion' => md5($optic->getEmail().'corekey'.$optic->getId()),
                     )
                 )
             , 'text/html')
@@ -210,7 +210,7 @@ class Mailer
                 $paymentType = 'invoice.payment.by.paypal';
         }
 
-        $orderUrl = $this->router->generate('optisoop_front_profile_showinvoice', array('number' => $invoice->getInvoiceNumber()), UrlGeneratorInterface::ABSOLUTE_URL);
+        $orderUrl = $this->router->generate('core_front_profile_showinvoice', array('number' => $invoice->getInvoiceNumber()), UrlGeneratorInterface::ABSOLUTE_URL);
 
         $context = array(
             'order_number' => $invoice->getTransaction()->getTransactionKey(),
@@ -235,7 +235,7 @@ class Mailer
             'order_number'    => $invoice->getTransaction()->getTransactionKey(),
             'invoice_date'      => $invoice->getCreated(),
             'user_email'        => $invoice->getTransaction()->getActor()->getEmail(),
-            'order_details_url' => $this->router->generate('optisoop_front_profile_showinvoice', array('number' => $invoice->getInvoiceNumber()), UrlGeneratorInterface::ABSOLUTE_URL),
+            'order_details_url' => $this->router->generate('core_front_profile_showinvoice', array('number' => $invoice->getInvoiceNumber()), UrlGeneratorInterface::ABSOLUTE_URL),
         );
 
         $this->sendMessage($templateName, $context, $this->parameters['company']['sales_email'], $this->parameters['company']['sales_email']);

@@ -1,5 +1,5 @@
 <?php
-namespace Optisoop\Bundle\CoreBundle\DataFixtures;
+namespace Core\Bundle\CoreBundle\DataFixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;

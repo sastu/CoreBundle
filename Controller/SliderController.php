@@ -81,7 +81,7 @@ class SliderController extends Controller
 
             $this->get('session')->getFlashBag()->add('success', 'slider.created');
 
-            return $this->redirect($this->generateUrl('optisoop_core_slider_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('core_core_slider_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -208,7 +208,7 @@ class SliderController extends Controller
 
             $this->get('session')->getFlashBag()->add('success', 'slider.edited');
 
-            return $this->redirect($this->generateUrl('optisoop_core_slider_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('core_core_slider_show', array('id' => $id)));
         }
 
         return array(
@@ -250,7 +250,7 @@ class SliderController extends Controller
             $this->get('session')->getFlashBag()->add('info', 'slider.deleted');
         }
 
-        return $this->redirect($this->generateUrl('optisoop_core_slider_index'));
+        return $this->redirect($this->generateUrl('core_core_slider_index'));
     }
 
     /**

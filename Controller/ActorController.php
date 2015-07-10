@@ -115,7 +115,7 @@ class ActorController  extends Controller
                 return $this->redirect($url.'&addUser='.$entity->getId());
             }
             
-            return $this->redirect($this->generateUrl('optisoop_core_actor_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('core_core_actor_show', array('id' => $entity->getId())));
         }else{
 //             die('invalid');
         }
@@ -248,7 +248,7 @@ class ActorController  extends Controller
 
             $this->get('session')->getFlashBag()->add('success', 'user.edited');
 
-            return $this->redirect($this->generateUrl('optisoop_core_actor_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('core_core_actor_show', array('id' => $id)));
         }
 
         return array(
@@ -290,7 +290,7 @@ class ActorController  extends Controller
             $this->get('session')->getFlashBag()->add('info', 'user.deleted');
         }
 
-        return $this->redirect($this->generateUrl('optisoop_core_actor_index'));
+        return $this->redirect($this->generateUrl('core_core_actor_index'));
     }
 
     /**
@@ -395,11 +395,11 @@ class ActorController  extends Controller
             $this->get('core.mailer')->sendRegisteredEmailMessage($registration->getActor());
 
             if ($referer == '/identification') {
-                return $this->redirect($this->generateUrl('optisoop_ecommerce_checkout_deliveryinfo'));
+                return $this->redirect($this->generateUrl('core_ecommerce_checkout_deliveryinfo'));
             }
    
            
-            return $this->redirect($this->generateUrl('optisoop_front_profile_index').'?transactions=true');
+            return $this->redirect($this->generateUrl('core_front_profile_index').'?transactions=true');
 
 
         }else{

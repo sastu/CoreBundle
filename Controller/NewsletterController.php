@@ -89,7 +89,7 @@ class NewsletterController extends Controller
         
         $user = $this->get('security.context')->getToken()->getUser();
         if (!$user->isGranted('ROLE_ADMIN')) {
-            return $this->redirect($this->generateUrl('optisoop_core_newsletter_index'));
+            return $this->redirect($this->generateUrl('core_core_newsletter_index'));
         }
         
         $entity->setNewsletter(false);
@@ -98,7 +98,7 @@ class NewsletterController extends Controller
 
         $this->get('session')->getFlashBag()->add('success', 'mailer.edited');
 
-        return $this->redirect($this->generateUrl('optisoop_core_newsletter_index'));
+        return $this->redirect($this->generateUrl('core_core_newsletter_index'));
         
     }
     
@@ -164,7 +164,7 @@ class NewsletterController extends Controller
 
             $this->get('session')->getFlashBag()->add('success', 'mailer.created');
 
-            return $this->redirect($this->generateUrl('optisoop_core_newsletter_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('core_core_newsletter_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -292,7 +292,7 @@ class NewsletterController extends Controller
 
             $this->get('session')->getFlashBag()->add('success', 'mailer.edited');
 
-            return $this->redirect($this->generateUrl('optisoop_core_newsletter_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('core_core_newsletter_show', array('id' => $id)));
         }
 
         return array(
@@ -334,7 +334,7 @@ class NewsletterController extends Controller
             $this->get('session')->getFlashBag()->add('info', 'mailer.deleted');
         }
 
-        return $this->redirect($this->generateUrl('optisoop_core_newsletter_index'));
+        return $this->redirect($this->generateUrl('core_core_newsletter_index'));
     }
 
     
@@ -421,7 +421,7 @@ class NewsletterController extends Controller
 
             $this->get('session')->getFlashBag()->add('success', 'mailer.created');
 
-            return $this->redirect($this->generateUrl('optisoop_core_newsletter_showshipping', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('core_core_newsletter_showshipping', array('id' => $entity->getId())));
         }
 
         return array(
@@ -531,6 +531,6 @@ class NewsletterController extends Controller
 
         $this->get('session')->getFlashBag()->add('info', 'mailer.deleted');
 
-        return $this->redirect($this->generateUrl('optisoop_core_newsletter_shipping'));
+        return $this->redirect($this->generateUrl('core_core_newsletter_shipping'));
     }
 }

@@ -37,7 +37,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Lo
     {
         
         if ($this->hasRole('ROLE_ADMIN', $token->getUser())) {
-            return new RedirectResponse($this->container->get('router')->generate('optisoop_admin_default_index'));
+            return new RedirectResponse($this->container->get('router')->generate('core_admin_default_index'));
         } else {
             $referer = $this->getRefererPath($request);
             if (preg_match('/(^\/identification)/', $referer)) {
@@ -46,7 +46,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Lo
                     throw $this->createNotFoundException('Unable to find Project entity.');
                 }
                 $slug = $matches[1][0];
-                return new RedirectResponse($this->container->get('router')->generate('optisoop_front_checkout_investinfo', array('slug' => $slug)));
+                return new RedirectResponse($this->container->get('router')->generate('core_front_checkout_investinfo', array('slug' => $slug)));
             }
             return new RedirectResponse($this->container->get('router')->generate('index'));
         }

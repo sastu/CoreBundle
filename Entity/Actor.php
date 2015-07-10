@@ -44,20 +44,6 @@ class Actor extends BaseActor
      * @ORM\Column(name="newsletter", type="boolean")
      */
     private $newsletter=0;
-    
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="\Core\Bundle\EcommerceBundle\Entity\Address", mappedBy="actor", cascade={"persist", "remove"})
-     */
-    private $addresses;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="\Core\Bundle\EcommerceBundle\Entity\Transaction", mappedBy="actor", cascade={"remove"})
-     */
-    private $transactions;
 
     /**
      * @var Image
@@ -73,8 +59,7 @@ class Actor extends BaseActor
     public function __construct()
     {
         parent::__construct();
-        $this->addresses = new ArrayCollection();
-        $this->transactions = new ArrayCollection();
+       
     }
 
     /**
@@ -133,76 +118,6 @@ class Actor extends BaseActor
     public function getSurnames()
     {
         return $this->surnames;
-    }
-
-    /**
-     * Add address
-     *
-     * @param Address $address
-     *
-     * @return Actor
-     */
-    public function addAddress(Address $address)
-    {
-        $address->setActor($this);
-        $this->addresses->add($address);
-
-        return $this;
-    }
-
-    /**
-     * Remove address
-     *
-     * @param Address $address
-     */
-    public function removeAddress(Address $address)
-    {
-        $this->addresses->removeElement($address);
-    }
-
-    /**
-     * Get addresses
-     *
-     * @return ArrayCollection
-     */
-    public function getAddresses()
-    {
-        return $this->addresses;
-    }
-
-    /**
-     * Add order
-     *
-     * @param Transaction $order
-     *
-     * @return Actor
-     */
-    public function addTransaction(Transaction $order)
-    {
-        $order->setActor($this);
-        $this->orders->add($order);
-
-        return $this;
-    }
-
-    /**
-     * Remove order
-     *
-     * @param Transaction $order
-     */
-    public function removeTransaction(Transaction $order)
-    {
-        $this->orders->removeElement($order);
-    }
-
-    /**
-     * Get orders
-     *
-     * @return ArrayCollection
-     */
-    public function getTransactions()
-    {
-        return $this->orders;
     }
 
     /**
