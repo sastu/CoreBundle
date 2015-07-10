@@ -1,0 +1,18 @@
+{
+    "name": "core/CoreBundle",
+    "type": "core-bundle",
+    "description": "Core CoreBundle",
+    "keywords": ["log", "logging"],
+    "homepage": "http://symfony.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dario Sebastian Sasturain",
+            "email": "sebastian.sasturain@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Core\\Bundle\\CoreBundle\\": "" }
+    }
+   
+}
