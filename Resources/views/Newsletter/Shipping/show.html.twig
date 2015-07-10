@@ -1,0 +1,87 @@
+{% extends "AdminBundle:Base:layout.html.twig" %}
+
+{% block section %}shippings{% endblock %}
+
+{% block content %}
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    {{ entity.newsletter.title }}
+                </h3>
+                <ul class="breadcrumb">
+                    <li><a href="{{ path('core_admin_default_index') }}"> <i class="ion-home"></i>  {{ "home" | trans }}</a></li>
+                    <li><a href="{{ path('core_core_newsletter_shipping') }}">{{ "newsletter.shipping.plural" | trans }}</a></li>
+                    <li><a href="{{ path('core_core_newsletter_newshipping') }}">{{ "new.singular" | trans }}</a></li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid profile">
+            <div class="span12">
+                <div class="tabbable tabbable-custom boxless custom-border">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#info_tab" data-toggle="tab">{{ "information" | trans }}</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="info_tab">
+                            <div class="portlet box custom">
+                                <div class="portlet-body profile">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <td>{{ "newsletter.singular" | trans }}</td>
+                                            <td>{{ entity.newsletter.title }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ "newsletter.shipping.type" | trans }}</td>
+                                            <td>{{ entity.type }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ "newsletter.shipping.total" | trans }}</td>
+                                            <td>{{ entity.totalSent }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ "newsletter.shipping.date" | trans }}</td>
+                                            <td>{{ entity.created | date ('d/m/Y H:i:s') }}</td>
+                                        </tr>
+                                 
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+                <!--END TABS-->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+    <!-- END PAGE CONTAINER-->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        jQuery(document).ready(function() {
+            $('#delete-btn').on('click', function(e) {
+                e.preventDefault();
+
+                if (confirm('{{ "are.you.sure" | trans }}')) {
+                    $('#delete-entity').submit();
+                }
+            });
+
+        });
+    </script>
+{% endblock %}

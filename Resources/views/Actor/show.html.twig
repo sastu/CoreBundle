@@ -1,0 +1,155 @@
+{% extends "AdminBundle:Base:layout.html.twig" %}
+
+{% block section %}actors{% endblock %}
+
+{% block content %}
+    
+    
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        {{ entity.name }}
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{ path('core_admin_default_index') }}"> <i class="ion-home"></i>  {{ "home" | trans }}</a></li>
+        <li><a href="javascript:">{{ "users" | trans }}</a></li>
+        <li><a href="{{ path('core_core_actor_show', { id: entity.id }) }}">{{ entity.name ~ ' ' ~ entity.surnames }}</a></li>
+      </ol>
+    </section>
+      
+      
+     <section class="content">
+      <div class="row">
+          <div class="col-md-12">
+              <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="{{ not app.request.get('address') ? 'active' }}"><a href="#info_tab" data-toggle="tab">{{ "information" | trans }}</a></li>
+                    <li class="{{ app.request.get('address') ? 'active' }}"><a href="#address_tab" data-toggle="tab">{{ "address.plural" | trans }}</a></li>
+                    <li class="{{ app.request.get('transactions') ? 'active' }}"><a href="#transactions_tab" data-toggle="tab">{{ "transactions.plural" | trans }}</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane {{ not app.request.get('address') ? 'active' }}" id="info_tab">
+                        <div class="box-body show-tables">
+                             <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td>{{ "Email" | trans }}</td>
+                                    <td>{{ entity.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ "user.singular" | trans }}</td>
+                                    <td>{{ entity.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ "name" | trans }}</td>
+                                    <td>{{ entity.name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ "surnames" | trans }}</td>
+                                    <td>{{ entity.surnames }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ "image.singular" | trans }}</td>
+                                    <td>
+                                        {% if entity.image %}
+                                            <img width="150" src="{{ asset('uploads/images/profile/' ~ entity.id ~'/'~entity.image) }}" alt="{{ entity.image }}" />
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer">
+                            <a href="{{ path('core_core_actor_edit', { id: entity.id }) }}" class="btn btn-primary btn-flat"><i class="icon-edit"></i> {{ "edit.singular" | trans }}</a>
+                            <button type="submit" class="btn btn-danger btn-flat pull-right" id="delete-btn">{{ "delete" | trans }}</button>
+                            <form id="delete-entity" action="{{ path('core_core_actor_delete', { 'id': entity.id }) }}" method="post">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                {{ form_widget(delete_form) }}
+                            </form>
+                        </div>
+                    </div>
+                            
+                            
+                    <div class="tab-pane  {{ app.request.get('address') ? 'active' }}" id="address_tab">
+                        <div class="box-body show-tables">
+                            <table class="table table-striped table-bordered table-hover" id="addresses-table">
+                                <thead>
+                                <tr>
+                                    <th class="hidden-480">ID</th>
+                                    <th class="hidden-480">{{ "name" | trans }}</th>
+                                    <th class="hidden-480">{{ "category.singular" | trans }}</th>
+                                    <th class="hidden-480">{{ "brand.singular" | trans }}</th>
+                                    <th class="hidden-480">{{ "price" | trans }}</th>
+                                    <th class="hidden-480">{{ "stock" | trans }}</th>
+                                    <th class="hidden-480">{{ "active" | trans }}</th>
+                                    <th class="hidden-480">{{ "available" | trans }}</th>
+                                    <th class="hidden-480">{{ "highlighted" | trans }}</th>
+                                    <th class="hidden-480">{{ "freeTransport" | trans }}</th>
+                                    <th style="width:70px;"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer"></div>
+                    </div>
+
+                    <div class="tab-pane  {{ app.request.get('transactions') ? 'active' }}" id="transactions_tab">
+                        <div class="box-body show-tables">
+                             <table class="table table-striped table-bordered table-hover" id="transactions-table">
+                                <thead>
+                                <tr>
+                                    <th class="hidden-480">{{ "number" | trans }}</th>
+                                    <th class="hidden-480">{{ "date" | trans }}</th>
+                                    <th class="hidden-480">{{ "user.singular" | trans }}</th>
+                                    <th class="hidden-480">{{ "items" | trans }}</th>
+                                    <th class="hidden-480">{{ "status.singular" | trans }}</th>
+                                    <th class="hidden-480" style="width: 100px;">&nbsp;</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer"></div>
+                    </div>        
+                </div>
+          </div>
+      </div>
+     </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        
+
+        jQuery(document).ready(function() {
+            $('#delete-btn').on('click', function(e) {
+                e.preventDefault();
+
+                if (confirm('{{ "are.you.sure" | trans }}')) {
+                    $('#delete-entity').submit();
+                }
+            });
+
+            
+
+            {# TableManaged.init(
+                '#transactions-table',
+                '{{ url('core_core_transaction_listforuserjson', { actorId: entity.id }) }}',
+                [2],
+                transactions_table_columns,
+                '{{ url('core_admin_default_getdatatablesi18n', { language: app.request.locale }) }}');#}
+        });
+
+    </script>
+{% endblock %}

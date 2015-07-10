@@ -1,0 +1,23 @@
+{% block subject %}Pedido nº {{ order_number }}{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+Pedido nº: {{ order_number }}
+
+Fecha: {{ invoice_date | date('d/m/Y') }}
+
+Email del comprador: {{ user_email }}
+
+Detalles: {{ order_details_url }}
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+    <p><b>Pedido nº:</b> {{ order_number }}</p>
+
+    <p><b>Fecha:</b> {{ invoice_date | date('d/m/Y H:i') }}</p>
+
+    <p><b>Email del comprador:</b> {{ user_email }}</p>
+
+    <p><b>Detalles:</b> <a href="{{ order_details_url }}">{{ order_details_url }}</a></p>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "AdminBundle:Base:layout.html.twig" %}
+
+{% block section %}shippings{% endblock %}
+
+{% block content %}
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    {{ "newsletter.shipping.plural" | trans }}
+                </h3>
+                <ul class="breadcrumb">
+                    <li><a href="{{ path('core_admin_default_index') }}"> <i class="ion-home"></i>  {{ "home" | trans }}</a></li>
+                    <li><a href="javascript:">{{ "newsletter.shipping.plural" | trans }}</a></li>
+                    <li><a href="{{ path('core_core_newsletter_shipping') }}">{{ "newsletter.shipping.plural" | trans }}</a></li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- TABLE PORTLET-->
+                <div class="portlet-body">
+                    <div class="clearfix">
+                        <div class="btn-group">
+                            <a href="{{ path('core_core_newsletter_newshipping') }}" class="btn green">
+                                {{ "add.new" | trans }} <i class="icon-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-bordered table-hover" id="shippings-table">
+                        <thead>
+                        <tr>
+                            <th class="hidden-480">ID</th>
+                            <th class="hidden-480">{{ "newsletter.singular" | trans }}</th>
+                            <th class="hidden-480">{{ "newsletter.shipping.type" | trans }}</th>
+                            <th class="hidden-480">{{ "newsletter.shipping.date" | trans }}</th>
+                            <th class="hidden-480">{{ "newsletter.shipping.total" | trans }}</th>
+                            <th style="width:70px;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END TABLE PORTLET-->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+    <!-- END PAGE CONTAINER-->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        var table_columns = [
+            { "mData": "id" },
+            {
+                "mData": function (source) {
+                    return '<a href="' + source.id + '">' + source.newsletter + '</a>';
+                }
+            },
+            {
+                "mData": "type",
+                "mRender": function(data) {
+                    var code = '';
+                    if ('all' == data) {
+                        code = '<span class="label label-success">Enviado a todos los suscriptores</span>';
+                    } else if ('managers' == data) {
+                        code = '<span class="label label-warning">Enviado a todos los manager</span>';
+                    }else if ('users' == data) {
+                        code = '<span class="label label-primary">Enviado a todos los usuarios comunes</span>';
+                    }
+
+                    return code;
+                }
+            },
+            {
+                "mData": function (source) {
+                    var d = source.created.date;
+                    var dayArr = d.split('.');
+                    if(dayArr[0] != null)
+                    return dayArr[0];
+                }
+            },
+            { "mData": "totalSent" },
+            {
+                "mData": function(source) {
+                    return '<a href="' + source.id + '/delete" class="btn mini red"> {{ "delete" | trans }}</a> ';
+                }
+            }
+        ];
+
+        jQuery(document).ready(function() {
+
+            TableManaged.init(
+                '#shippings-table',
+                '{{ url('core_core_newsletter_listshippingjson') }}',
+                [],
+                table_columns,
+                '{{ url('core_admin_default_getdatatablesi18n', { language: app.request.locale }) }}');
+        });
+    </script>
+{% endblock %}

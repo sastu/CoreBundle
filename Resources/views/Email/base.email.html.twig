@@ -1,0 +1,42 @@
+{% block subject %}{{ 'contact.email.subject' | trans({ '%app_name%': core.company.name }) }}{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+{{ 'contact.email.message' | trans({ '%app_name%': core.company.name }) }}
+
+Nombre:  {{params.name}}
+Email: {{params.email}}
+Mensaje: {{params.message}}
+
+Equipo de Itnube
+
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+{% spaceless %}
+    {{ include('CoreBundle:Email:_header.html.twig') }}
+
+    <p style="padding:0 0 20px 0; margin:0;">
+        {{ 'contact.email.message' | trans({ '%app_name%': core.company.name }) }}
+    </p>
+
+    <p style="padding:0 0 20px 0; margin:0;">
+        Nombre:  {{params.name}}
+    </p>
+    <p style="padding:0 0 20px 0; margin:0;">
+        Email: {{params.email}}
+    </p>
+    <p style="padding:0 0 20px 0; margin:0;">
+         Mensaje: {{params.message}}
+    </p>
+
+    <p style="padding:0; margin:0;">
+        Equipo de Itnube
+    </p>
+    {{ include('CoreBundle:Email:_footer.html.twig') }}
+{% endspaceless %}
+{% endblock %}
+
+
+

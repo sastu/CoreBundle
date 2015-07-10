@@ -1,0 +1,32 @@
+services:
+    core.mailer:
+        class: Core\Bundle\CoreBundle\Service\Mailer
+        arguments:
+            - @mailer
+            - @twig
+            - { parameters: %core% }
+            - @router
+            - @templating
+            - @html2pdf_factory
+            - @kernel
+
+    authentication_handler:
+        class: Core\Bundle\CoreBundle\Handler\AuthenticationHandler
+        arguments: [@service_container]
+        
+    core_twig_extension:
+        class: Core\Bundle\CoreBundle\Twig\CoreExtension
+        calls:
+            - [setContainer, [@service_container] ]
+        tags:
+            - { name: twig.extension }
+            
+    notification_manager:
+        class: Core\Bundle\CoreBundle\Service\NotificationManager
+        calls:
+            - [setContainer, [@service_container] ] 
+            
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
